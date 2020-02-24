@@ -32,12 +32,12 @@ function addRandomFact() {
       ['I am currently 20 years old!', 'I love to hike, bike, and camp!', 'I am an eagle scout！', 'I was the valedictorian of my high school!', 'I love traveling to other countries! I\'ve been to about 10.', 'I love talking to others and socializing with others!'];
 
   // Pick a random fact.
-  const factNum = Math.floor(Math.random() * facts.length) + 1;
+  const factNum = Math.floor(Math.random() * facts.length);
   const fact = facts[factNum];
   // Add it to the page.
 
   const factContainer = document.getElementById('fact-container');
   factContainer.innerText = fact;
   const factNumContainer = document.getElementById('factNum-container');
-  factNumContainer.innerText = "This is fact number " + factNum + "!";
+  factNumContainer.innerText = "This is fact number " + (factNum + 1) + "!";
 }
