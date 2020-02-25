@@ -19,11 +19,12 @@ function addRandomFact() {
 
   // Pick a random fact.
   const factNum = Math.floor(Math.random() * facts.length);
+  const factNumDisplay = factNum + 1; //We want to add 1 to display 1-based index due to 0-based indexing of arrays
   const fact = facts[factNum];
   // Add it to the page.
 
   const factContainer = document.getElementById('fact-container');
   factContainer.innerText = fact;
   const factNumContainer = document.getElementById('factNum-container');
-  factNumContainer.innerText = "This is fact number " + (factNum + 1) + "!";
+  factNumContainer.innerText = "This is fact number " + factNumDisplay + "!";
 }

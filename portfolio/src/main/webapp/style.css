@@ -1,6 +1,6 @@
 #content {
     text-align: center;
-    margin-left: 160px; /* Make room for sidebar */
+    margin-left: 160px;
     padding: 0px 10px;
 }
 
@@ -14,10 +14,7 @@
 
 .header {
     text-align: center;
-    /* background: #708090; */
-    /* color: white; */
     font-size: 30px;
-    /* left: 10px; */
     margin-left: 140px;
     border-radius: 25px;
     padding:  5px;
@@ -30,17 +27,13 @@
     z-index: 1;
     top:0px;
     left: 0px;
-    /* top: 20px; */
-    /* left: 10px; */
     background: #cb5c0d;
-    /* overflow-x: hidden; */
     padding: 8px 0;
-    /* border-radius: 25px; */
     
     
 }
 
-/* The navigation menu links */
+/* Links for sidebar */
 .sidebar a {
   margin-top: 20px;
   padding: 6px 0px 6px 22.5px;
@@ -51,7 +44,7 @@
   transition: width 1s;
 }
 
-/* When you mouse over the navigation links, change their color */
+/* On hover */
 .sidebar a:hover {
   color: #6f2f2c;
   
@@ -60,8 +53,6 @@
 .tooltip {
   position: relative;
   display: inline-block;
-  
-  /* border-bottom: 1px dotted rgb(40, 91, 167); */
 }
 
 .tooltip .tooltiptext {
@@ -90,6 +81,7 @@
   border-color: transparent #6f2f2c transparent transparent;
 
 }
+
 .tooltip:hover .tooltiptext {
   visibility: visible;
   animation: 
@@ -124,5 +116,5 @@
 body {
     margin: 0px;
     height: 3000px;  /* Used to enable scrolling  */
-    background: linear-gradient(55deg,  rgb(233, 231, 231), #ffffff);
+    background: linear-gradient(55deg,  rgb(156, 156, 156), #ffffff);
 }
