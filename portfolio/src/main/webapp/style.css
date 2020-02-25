@@ -1,8 +1,7 @@
 #content {
-  text-align: center;
-
-  margin-left: 160px; /* Make room for sidebar */
-  padding: 0px 10px;
+    text-align: center;
+    margin-left: 160px; /* Make room for sidebar */
+    padding: 0px 10px;
 }
 
 #contentBlock{
@@ -13,29 +12,91 @@
     color: gray;
 }
 
+.header {
+    text-align: center;
+    /* background: #708090; */
+    /* color: white; */
+    font-size: 30px;
+    /* left: 10px; */
+    margin-left: 140px;
+    border-radius: 25px;
+    padding:  5px;
+}
+
 .sidebar {
-    width: 130px;
+    height: 100%; 
+    width: 70px;
     position: fixed;
     z-index: 1;
-    top: 20px;
-    left: 10px;
-    background: #eee;
-    overflow-x: hidden;
+    top:0px;
+    left: 0px;
+    /* top: 20px; */
+    /* left: 10px; */
+    background: #cb5c0d;
+    /* overflow-x: hidden; */
     padding: 8px 0;
+    /* border-radius: 25px; */
+    
+    
 }
 
 /* The navigation menu links */
 .sidebar a {
-  padding: 6px 8px 6px 16px;
+  margin-top: 20px;
+  padding: 6px 0px 6px 22.5px;
   text-decoration: none;
   font-size: 25px;
-  color: #2196F3;
   display: block;
+  color: white;
+  transition: width 1s;
 }
 
 /* When you mouse over the navigation links, change their color */
 .sidebar a:hover {
-  color: #064579;
+  color: #6f2f2c;
+  
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  
+  /* border-bottom: 1px dotted rgb(40, 91, 167); */
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #6f2f2c;
+  color: rgb(236, 234, 234);
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: 5px;
+  left: 125%;
+  font-size: 15px;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent #6f2f2c transparent transparent;
+
+}
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  animation: 
+        tooltips-horz 
+        300ms 
+        ease-out 
+        forwards;
 }
 
 .container {
@@ -53,8 +114,15 @@
     font-size: 18px;
 }
 
-p{
-    color:goldenrod;
+@keyframes tooltips-horz {
+  to {
+    opacity: .9;
+    transform: translate(-10%, 0);
+  }
 }
 
-
+body {
+    margin: 0px;
+    height: 3000px;  /* Used to enable scrolling  */
+    background: linear-gradient(55deg,  rgb(233, 231, 231), #ffffff);
+}
