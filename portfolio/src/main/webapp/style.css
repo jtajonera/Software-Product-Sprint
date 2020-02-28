@@ -95,17 +95,6 @@
     margin-top: 20px;
 }
 
-.footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: lightgray;
-    color: black;
-    text-align: center;
-    font-size: 18px;
-}
-
 @keyframes tooltips-horz {
   to {
     opacity: .9;
