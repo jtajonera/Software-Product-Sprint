@@ -28,3 +28,10 @@ function addRandomFact() {
   const factNumContainer = document.getElementById('factNum-container');
   factNumContainer.innerText = "This is fact number " + factNumDisplay + "!";
 }
+
+//Gets the number of times a person views the website
+async function getGreetAsyncAwait() {
+  const response = await fetch('/index');
+  const greet = await response.text();
+  document.getElementById('greet-container').innerText = greet;
+}
