@@ -12,17 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Adds a random greeting to the page.
- */
-function addRandomGreeting() {
-  const greetings =
-      ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
 
-  // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
+function addRandomFact() {
+  const facts =
+      ['I am currently 20 years old!', 'I love to hike, bike, and camp!', 'I am an eagle scout!', 'I was the valedictorian of my high school!', 'I love traveling to other countries! I\'ve been to about 10.', 'I love talking to others and socializing with others!'];
 
+  // Pick a random fact.
+  const factNum = Math.floor(Math.random() * facts.length);
+  const factNumDisplay = factNum + 1; //We want to add 1 to display 1-based index due to 0-based indexing of arrays
+  const fact = facts[factNum];
   // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
+
+  const factContainer = document.getElementById('fact-container');
+  factContainer.innerText = fact;
+  const factNumContainer = document.getElementById('factNum-container');
+  factNumContainer.innerText = "This is fact number " + factNumDisplay + "!";
+}
+
+//Gets the number of times a person views the website
+async function getGreetAsyncAwait() {
+  const response = await fetch('/index');
+  const greet = await response.text();
+  document.getElementById('greet-container').innerText = greet;
 }

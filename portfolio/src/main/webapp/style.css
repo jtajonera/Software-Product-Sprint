@@ -1,9 +1,109 @@
 #content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 650px;
+    text-align: center;
+    margin-left: 160px;
+    padding: 0px 10px;
 }
 
-#greeting-container {
+#contentBlock{
+    display: inline-block;
+}
+
+#factNum-container{
+    color: gray;
+}
+
+.header {
+    text-align: center;
+    font-size: 30px;
+    margin-left: 140px;
+    border-radius: 25px;
+    padding:  5px;
+}
+
+.sidebar {
+    height: 100%; 
+    width: 70px;
+    position: fixed;
+    z-index: 1;
+    top:0px;
+    left: 0px;
+    background: #cb5c0d;
+    padding: 8px 0;
+    
+    
+}
+
+/* Links for sidebar */
+.sidebar a {
   margin-top: 20px;
+  padding: 6px 0px 6px 22.5px;
+  text-decoration: none;
+  font-size: 25px;
+  display: block;
+  color: white;
+  transition: width 1s;
+}
+
+/* On hover */
+.sidebar a:hover {
+  color: #6f2f2c;
+  
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #6f2f2c;
+  color: rgb(236, 234, 234);
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: 5px;
+  left: 125%;
+  font-size: 15px;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent #6f2f2c transparent transparent;
+
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  animation: 
+        tooltips-horz 
+        300ms 
+        ease-out 
+        forwards;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+@keyframes tooltips-horz {
+  to {
+    opacity: .9;
+    transform: translate(-10%, 0);
+  }
+}
+
+body {
+    margin: 0px;
+    height: 3000px;  /* Used to enable scrolling  */
+    background: linear-gradient(55deg,  rgb(156, 156, 156), #ffffff);
 }

@@ -2,17 +2,34 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>My Portfolio</title>
+    <title>Home</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   </head>
   <body>
+    <!-- My sidebar -->
+    <div class="sidebar">
+        <a class="tooltip" href="/index.html"><i class="material-icons" width="50" >home</i> <span class="tooltiptext">Home</span> </a>
+        <a class="tooltip" href="/pages/about.html"><i class="material-icons">face</i> <span class="tooltiptext">About Me</span> </a>
+        <a class="tooltip" href="/pages/projects.html"><i class="material-icons">settings</i> <span class="tooltiptext">Projects</span> </a>
+        <a class="tooltip" href="/pages/contact.html"><i class="material-icons">speaker_notes</i> <span class="tooltiptext">Contact Me</span> </a>
+    </div>
+
+    <div class="header">
+        <h1>Jeremy Tajonera</h1>
+    </div>
     <div id="content">
-      <h1>My Portfolio</h1>
-      <p>This is my portfolio.</p>
-      <p>Click here to get a random message:</p>
-      <button onclick="addRandomGreeting()">Hello</button>
-      <div id="greeting-container"></div>
+        <div id="contentBlock">
+            <img src="images/UT.jpeg"/>
+            <p>Hey! Welcome to my portfolio.</p>
+            <p>Click here to get a random fact:</p>
+            <button onclick="addRandomFact()">Want to know more about me?</button>
+            <p class="container" id="fact-container" ></p>
+            <h6 class="container" id="factNum-container"></h6>
+            <button onclick="getGreetAsyncAwait()">Want to be greeted by a button?</button>
+            <div class="container" id="greet-container"></div>
+        </div>
     </div>
   </body>
 </html>
