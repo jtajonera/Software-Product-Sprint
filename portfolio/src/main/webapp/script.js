@@ -15,7 +15,12 @@
 
 function addRandomFact() {
   const facts =
-      ['I am currently 20 years old!', 'I love to hike, bike, and camp!', 'I am an eagle scout!', 'I was the valedictorian of my high school!', 'I love traveling to other countries! I\'ve been to about 10.', 'I love talking to others and socializing with others!'];
+      ['I am currently 20 years old!', 
+      'I love to hike, bike, and camp!', 
+      'I am an eagle scout!', 
+      'I was the valedictorian of my high school!', 
+      'I love traveling to other countries! I\'ve been to about 10.', 
+      'I love talking to others and socializing with others!'];
 
   // Pick a random fact.
   const factNum = Math.floor(Math.random() * facts.length);
@@ -34,4 +39,38 @@ async function getGreetAsyncAwait() {
   const response = await fetch('/index');
   const greet = await response.text();
   document.getElementById('greet-container').innerText = greet;
+}
+
+//Gets the list of greetings
+function getGreetList() {
+  fetch('/data').then(response => response.json()).then((greets) => {
+        const listElement = document.getElementById('list-container');
+        listElement.innerHTML = '';
+        for(i in greets){
+            greets[i];
+            console.log(greets[i] +" " +i +" "+ greets.length);
+            listElement.append(createListElement( greets[i]));
+        }
+    });
+}
+
+
+
+function getComments() {
+  fetch('/comment').then(response => response.json()).then((comments) => {
+    const comElement = document.getElementById('comment-container');
+        comElement.innerHTML = '';
+        for(i in comments){
+            comments[i];
+            console.log("Added: " + comments[i]);
+            comElement.append(createListElement( comments[i]));
+        }
+  });
+}
+
+/** Creates an <li> element containing text. */
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
 }
