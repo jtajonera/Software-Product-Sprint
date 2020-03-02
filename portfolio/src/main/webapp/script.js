@@ -41,6 +41,13 @@ async function getGreetAsyncAwait() {
   document.getElementById('greet-container').innerText = greet;
 }
 
+/*Creates a new list element*/
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
+}
+
 //Gets the list of greetings
 function getGreetList() {
   fetch('/data').then(response => response.json()).then((greets) => {
@@ -57,20 +64,42 @@ function getGreetList() {
 
 
 function getComments() {
-  fetch('/comment').then(response => response.json()).then((comments) => {
+  fetch('/list-comment').then(response => response.json()).then((comments) => {
     const comElement = document.getElementById('comment-container');
-        comElement.innerHTML = '';
-        for(i in comments){
-            comments[i];
-            console.log("Added: " + comments[i]);
-            comElement.append(createListElement( comments[i]));
-        }
+    comments.forEach((comment) =>{
+        comElement.appendChild(createComElement(comment));
+    })
   });
 }
 
 /** Creates an <li> element containing text. */
-function createListElement(text) {
-  const liElement = document.createElement('li');
-  liElement.innerText = text;
-  return liElement;
+function createComElement(comment) {
+  const comElement = document.createElement('li');
+  comElement.className = 'comClass';
+
+  const titleElement = document.createElement('span');
+  titleElement.innerText = comment.title;
+
+  const deleteButtonElement = document.createElement('button');
+  deleteButtonElement.innerText = 'Delete Comment';
+  deleteButtonElement.id = "delete-button";
+  deleteButtonElement.addEventListener('click', () => {
+    deleteComment(comment);
+
+    // Removes comments
+    comElement.remove();
+  });
+
+  comElement.appendChild(titleElement);
+  comElement.appendChild(deleteButtonElement);
+  return comElement;
+}
+
+
+
+/** Tells the server to delete the comment */
+function deleteComment(comment) {
+  const params = new URLSearchParams();
+  params.append('id', comment.id);
+  fetch('/delete-comment', {method: 'POST', body: params});
 }
