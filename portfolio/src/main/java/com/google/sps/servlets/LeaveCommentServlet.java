@@ -12,51 +12,38 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+
+
+
 package com.google.sps.servlets;
 
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.SortDirection;
-import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserService; //gets userService
 import com.google.appengine.api.users.UserServiceFactory;
-import java.io.IOException;
 import java.io.PrintWriter;
+
+import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet {
+/** Servlet that processes text. */
+@WebServlet("/create-comment")
+public final class LeaveCommentServlet extends HttpServlet {
 
-  @Override
+  @Override  
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("text/html;");
     PrintWriter out = response.getWriter();
     
-
-    // Only logged-in users can see the form
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
-      out.println("<h1>You've Logged In!</h1>");
-      String logoutUrl = userService.createLogoutURL("/login");
-      out.println("<p>Hello " + userService.getCurrentUser().getEmail() + "!</p>");
-      out.println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
+        out.print("true");
+
     } else {
-    out.println("<h1>Login Here!</h1>");
-      String loginUrl = userService.createLoginURL("/login");
-      out.println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
+        out.print("false");
     }
-          out.println("<p>Return to home <a href=/>here</a>.</p>");
-
-  }
-
-  @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
     
   }
+
 }

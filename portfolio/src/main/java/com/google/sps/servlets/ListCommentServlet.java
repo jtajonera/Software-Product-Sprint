@@ -12,7 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+
+
+
 package com.google.sps.servlets;
+
+import com.google.appengine.api.users.UserService; //gets userService
+import com.google.appengine.api.users.UserServiceFactory;
+import java.io.PrintWriter;
 
 import com.google.sps.data.Task;
 import com.google.appengine.api.datastore.DatastoreService;
@@ -38,24 +45,32 @@ public final class ListCommentServlet extends HttpServlet {
 
   @Override  
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("comClass").addSort("timestamp", SortDirection.DESCENDING);
-
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    PreparedQuery results = datastore.prepare(query);
-
+    response.setContentType("text/html;");
+    PrintWriter out = response.getWriter();
+    
+    UserService userService = UserServiceFactory.getUserService();
     List<Task> comments = new ArrayList<>();
-    for (Entity entity : results.asIterable()) {
-      long id = entity.getKey().getId();
-      String title = (String) entity.getProperty("title");
-      long timestamp = (long) entity.getProperty("timestamp");
+    if (userService.isUserLoggedIn()) {
 
-      Task com = new Task(id, title, timestamp);
-      comments.add(com);
+        Query query = new Query("comClass").addSort("timestamp", SortDirection.DESCENDING);
+
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        PreparedQuery results = datastore.prepare(query);
+
+        
+        for (Entity entity : results.asIterable()) {
+            long id = entity.getKey().getId();
+            String title = (String) entity.getProperty("title");
+            long timestamp = (long) entity.getProperty("timestamp");
+
+            Task com = new Task(id, title, timestamp);
+            comments.add(com);
+        }   
     }
     Gson gson = new Gson();
-    
     response.setContentType("application/json;");
     response.getWriter().println(gson.toJson(comments));
+    
   }
 
 }
