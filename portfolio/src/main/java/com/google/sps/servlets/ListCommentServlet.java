@@ -62,8 +62,8 @@ public final class ListCommentServlet extends HttpServlet {
             long id = entity.getKey().getId();
             String title = (String) entity.getProperty("title");
             long timestamp = (long) entity.getProperty("timestamp");
-
-            Task com = new Task(id, title, timestamp);
+            String email = (String) entity.getProperty("email");
+            Task com = new Task(id, title, timestamp, email);
             comments.add(com);
         }   
     }

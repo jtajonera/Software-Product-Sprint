@@ -89,7 +89,7 @@ function createComElement(comment) {
   comElement.className = 'comClass';
 
   const titleElement = document.createElement('span');
-  titleElement.innerText = comment.title;
+  titleElement.innerText = comment.email + ": " + comment.title;
 
   const deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete Comment';
