@@ -7,7 +7,7 @@
     <script src="script.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   </head>
-  <body>
+  <body onload="getComments()">
     <!-- My sidebar -->
     <div class="sidebar">
         <a class="tooltip" href="/index.html"><i class="material-icons" width="50" >home</i> <span class="tooltiptext">Home</span> </a>
@@ -28,7 +28,15 @@
             <p class="container" id="fact-container" ></p>
             <h6 class="container" id="factNum-container"></h6>
             <button onclick="getGreetAsyncAwait()">Want to be greeted by a button?</button>
-            <div class="container" id="greet-container"></div>
+            <p class="container" id="greet-container"></p>
+            <button onclick="getGreetList()">View Possible Greetings</button>
+            <ul class="container" id="list-container"></ul>
+            <form action="/new-comment" method="POST">
+                <p>Leave a comment!</p>
+                <input type="text" name="title" />
+                <button>Submit</button>
+            </form>
+            <ul class="container" id="comment-container"></ul>
         </div>
     </div>
   </body>

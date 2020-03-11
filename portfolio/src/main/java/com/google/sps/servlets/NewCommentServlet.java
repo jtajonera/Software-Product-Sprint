@@ -14,33 +14,32 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
-@WebServlet("/index")
-public class DataServlet extends HttpServlet {
-  private List<String> intros;
-  private int count;
-  @Override
-  public void init() {
-    intros = new ArrayList<>();
-    intros.add("Hey!");
-    intros.add("Hello!");
-    intros.add("What's up!");
-    }
+/** Servlet that processes text. */
+@WebServlet("/new-comment")
+public final class NewCommentServlet extends HttpServlet {
 
-  @Override  
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    
-    String intro = intros.get((int) (Math.random() * intros.size()));
-    count ++;
-    response.setContentType("text/html;");
-    response.getWriter().println(intro + " I greeted you " + count + " times.");
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String title = request.getParameter("title");
+    long timestamp = System.currentTimeMillis();
+
+    Entity comEntity = new Entity("comClass");
+    comEntity.setProperty("title", title);
+    comEntity.setProperty("timestamp", timestamp);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(comEntity);
+
+    response.sendRedirect("/index.html");
   }
 }
