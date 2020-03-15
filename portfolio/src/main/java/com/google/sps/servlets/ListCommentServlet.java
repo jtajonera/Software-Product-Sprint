@@ -50,8 +50,9 @@ public final class ListCommentServlet extends HttpServlet {
     
     UserService userService = UserServiceFactory.getUserService();
     List<Task> comments = new ArrayList<>();
-    if (userService.isUserLoggedIn()) {
-
+    if (!userService.isUserLoggedIn()) {
+        return;
+    }
         Query query = new Query("comClass").addSort("timestamp", SortDirection.DESCENDING);
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -66,7 +67,7 @@ public final class ListCommentServlet extends HttpServlet {
             Task com = new Task(id, title, timestamp, email);
             comments.add(com);
         }   
-    }
+    
     Gson gson = new Gson();
     response.setContentType("application/json;");
     response.getWriter().println(gson.toJson(comments));

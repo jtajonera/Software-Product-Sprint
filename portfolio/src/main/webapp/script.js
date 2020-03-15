@@ -64,6 +64,8 @@ function getGreetList() {
 
 
 function getComments() {
+
+    const TRUTH_LENGTH = 4;
   fetch('/list-comment').then(response => response.json()).then((comments) => {
     const comElement = document.getElementById('comment-container');
     comments.forEach((comment) =>{
@@ -72,7 +74,7 @@ function getComments() {
   });
   fetch('/create-comment').then(response => response.text()).then((create) => {
     console.log(create);
-    if(create.length  == 4){ //returned true
+    if(create.length  == TRUTH_LENGTH){ //returned true
         document.getElementById('create-container').style.display = "block";
     } else { //returned false
         console.log("Should hide");
