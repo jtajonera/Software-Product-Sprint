@@ -12,65 +12,51 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
-
-
 package com.google.sps.servlets;
 
-import com.google.appengine.api.users.UserService; //gets userService
-import com.google.appengine.api.users.UserServiceFactory;
-import java.io.PrintWriter;
-
-import com.google.sps.data.Task;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
-import com.google.gson.Gson;
-import java.util.List;
-import java.util.ArrayList;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that processes text. */
-@WebServlet("/list-comment")
-public final class ListCommentServlet extends HttpServlet {
+@WebServlet("/login")
+public class LoginServlet extends HttpServlet {
 
-  @Override  
+  @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("text/html;");
     PrintWriter out = response.getWriter();
     
+
+    // Only logged-in users can see the form
     UserService userService = UserServiceFactory.getUserService();
-    List<Task> comments = new ArrayList<>();
     if (userService.isUserLoggedIn()) {
-
-        Query query = new Query("comClass").addSort("timestamp", SortDirection.DESCENDING);
-
-        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        PreparedQuery results = datastore.prepare(query);
-
-        
-        for (Entity entity : results.asIterable()) {
-            long id = entity.getKey().getId();
-            String title = (String) entity.getProperty("title");
-            long timestamp = (long) entity.getProperty("timestamp");
-            String email = (String) entity.getProperty("email");
-            Task com = new Task(id, title, timestamp, email);
-            comments.add(com);
-        }   
+      out.println("<h1>You've Logged In!</h1>");
+      String logoutUrl = userService.createLogoutURL("/login");
+      out.println("<p>Hello " + userService.getCurrentUser().getEmail() + "!</p>");
+      out.println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
+    } else {
+    out.println("<h1>Login Here!</h1>");
+      String loginUrl = userService.createLoginURL("/login");
+      out.println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
     }
-    Gson gson = new Gson();
-    response.setContentType("application/json;");
-    response.getWriter().println(gson.toJson(comments));
-    
+          out.println("<p>Return to home <a href=/>here</a>.</p>");
+
   }
 
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    
+  }
 }

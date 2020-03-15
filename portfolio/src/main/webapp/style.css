@@ -12,6 +12,10 @@
     color: gray;
 }
 
+#delete-button{
+    margin-left: 10px;
+}
+
 .header {
     text-align: center;
     font-size: 30px;

@@ -70,6 +70,17 @@ function getComments() {
         comElement.appendChild(createComElement(comment));
     })
   });
+  fetch('/create-comment').then(response => response.text()).then((create) => {
+    console.log(create);
+    if(create.length  == 4){ //returned true
+        document.getElementById('create-container').style.display = "block";
+    } else { //returned false
+        console.log("Should hide");
+        document.getElementById('create-container').style.display = "none";
+    }
+    
+    
+  });
 }
 
 /** Creates an <li> element containing text. */
@@ -78,7 +89,7 @@ function createComElement(comment) {
   comElement.className = 'comClass';
 
   const titleElement = document.createElement('span');
-  titleElement.innerText = comment.title;
+  titleElement.innerText = comment.email + ": " + comment.title;
 
   const deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete Comment';
