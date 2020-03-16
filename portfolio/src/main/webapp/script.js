@@ -111,8 +111,10 @@ function createComElement(comment) {
   const breakLine = document.createElement('br');
   comElement.appendChild(titleElement);
   comElement.appendChild(deleteButtonElement);
-  comElement.appendChild(breakLine);
-  comElement.appendChild(img);
+  if(comment.imageUrl){
+    comElement.appendChild(breakLine);
+    comElement.appendChild(img);
+  }
 
   return comElement;
 }

@@ -73,7 +73,7 @@ public final class NewCommentServlet extends HttpServlet {
 
     // User submitted form without selecting a file, so we can't get a URL. (devserver)
     if (blobKeys == null || blobKeys.isEmpty()) {
-      return null;
+      return "";
     }
 
     // Our form only contains a single file input, so get the first index.
@@ -83,7 +83,7 @@ public final class NewCommentServlet extends HttpServlet {
     BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
     if (blobInfo.getSize() == 0) {
       blobstoreService.delete(blobKey);
-      return null;
+      return "";
     }
 
     // We could check the validity of the file here, e.g. to make sure it's an image file
