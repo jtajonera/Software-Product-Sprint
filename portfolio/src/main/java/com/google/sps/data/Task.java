@@ -21,11 +21,13 @@ public final class Task {
   private final String title;
   private final long timestamp;
   private final String email;
+  private final String imageUrl;
 
-  public Task(long id, String title, long timestamp, String email) {
+  public Task(long id, String title, long timestamp, String email, String imageUrl) {
     this.id = id;
     this.title = title;
     this.timestamp = timestamp;
     this.email = email;
+    this.imageUrl = imageUrl;
   }
 }

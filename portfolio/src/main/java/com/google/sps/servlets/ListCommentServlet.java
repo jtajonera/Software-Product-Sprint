@@ -17,6 +17,8 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.users.UserService; //gets userService
 import com.google.appengine.api.users.UserServiceFactory;
 import java.io.PrintWriter;
@@ -50,6 +52,14 @@ public final class ListCommentServlet extends HttpServlet {
     
     UserService userService = UserServiceFactory.getUserService();
     List<Task> comments = new ArrayList<>();
+
+    BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+    String uploadUrl = blobstoreService.createUploadUrl("/new-comment");
+    
+
+    //First element will be the uploadURL
+    comments.add( new Task(0, uploadUrl, 0, "", ""));
+
     if (!userService.isUserLoggedIn()) {
         return;
     }
@@ -64,7 +74,8 @@ public final class ListCommentServlet extends HttpServlet {
             String title = (String) entity.getProperty("title");
             long timestamp = (long) entity.getProperty("timestamp");
             String email = (String) entity.getProperty("email");
-            Task com = new Task(id, title, timestamp, email);
+            String imageUrl = (String) entity.getProperty("imageUrl");
+            Task com = new Task(id, title, timestamp, email, imageUrl);
             comments.add(com);
         }   
     

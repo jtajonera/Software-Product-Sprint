@@ -67,6 +67,11 @@ function getComments() {
 
     const TRUTH_LENGTH = 4;
   fetch('/list-comment').then(response => response.json()).then((comments) => {
+    const imgURL = comments.shift().title;
+    console.log(imgURL);
+    const messageForm = document.getElementById('create-container');
+    messageForm.action = imgURL;
+
     const comElement = document.getElementById('comment-container');
     comments.forEach((comment) =>{
         comElement.appendChild(createComElement(comment));
@@ -92,7 +97,8 @@ function createComElement(comment) {
 
   const titleElement = document.createElement('span');
   titleElement.innerText = comment.email + ": " + comment.title;
-
+  var img = document.createElement('img'); 
+  img.src = comment.imageUrl;
   const deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete Comment';
   deleteButtonElement.id = "delete-button";
@@ -102,9 +108,12 @@ function createComElement(comment) {
     // Removes comments
     comElement.remove();
   });
-
+  const breakLine = document.createElement('br');
   comElement.appendChild(titleElement);
   comElement.appendChild(deleteButtonElement);
+  comElement.appendChild(breakLine);
+  comElement.appendChild(img);
+
   return comElement;
 }
 
