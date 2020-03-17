@@ -17,6 +17,8 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.users.UserService; //gets userService
 import com.google.appengine.api.users.UserServiceFactory;
 import java.io.PrintWriter;
@@ -45,13 +47,23 @@ public final class ListCommentServlet extends HttpServlet {
 
   @Override  
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    final String REDIRECTED_URL = "/new-comment";
     response.setContentType("text/html;");
     PrintWriter out = response.getWriter();
     
     UserService userService = UserServiceFactory.getUserService();
     List<Task> comments = new ArrayList<>();
-    if (userService.isUserLoggedIn()) {
 
+    BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+    String uploadUrl = blobstoreService.createUploadUrl(REDIRECTED_URL);
+    
+
+    //First element will be the uploadURL
+    comments.add( new Task(0, uploadUrl, 0, "", ""));
+
+    if (!userService.isUserLoggedIn()) {
+        return;
+    }
         Query query = new Query("comClass").addSort("timestamp", SortDirection.DESCENDING);
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -63,10 +75,11 @@ public final class ListCommentServlet extends HttpServlet {
             String title = (String) entity.getProperty("title");
             long timestamp = (long) entity.getProperty("timestamp");
             String email = (String) entity.getProperty("email");
-            Task com = new Task(id, title, timestamp, email);
+            String imageUrl = (String) entity.getProperty("imageUrl");
+            Task com = new Task(id, title, timestamp, email, imageUrl);
             comments.add(com);
         }   
-    }
+    
     Gson gson = new Gson();
     response.setContentType("application/json;");
     response.getWriter().println(gson.toJson(comments));

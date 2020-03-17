@@ -64,7 +64,14 @@ function getGreetList() {
 
 
 function getComments() {
+
+    const TRUTH_LENGTH = 4;
   fetch('/list-comment').then(response => response.json()).then((comments) => {
+    const imgURL = comments.shift().title;
+    console.log(imgURL);
+    const messageForm = document.getElementById('create-container');
+    messageForm.action = imgURL;
+
     const comElement = document.getElementById('comment-container');
     comments.forEach((comment) =>{
         comElement.appendChild(createComElement(comment));
@@ -72,7 +79,7 @@ function getComments() {
   });
   fetch('/create-comment').then(response => response.text()).then((create) => {
     console.log(create);
-    if(create.length  == 4){ //returned true
+    if(create.length  == TRUTH_LENGTH){ //returned true
         document.getElementById('create-container').style.display = "block";
     } else { //returned false
         console.log("Should hide");
@@ -90,7 +97,8 @@ function createComElement(comment) {
 
   const titleElement = document.createElement('span');
   titleElement.innerText = comment.email + ": " + comment.title;
-
+  var img = document.createElement('img'); 
+  img.src = comment.imageUrl;
   const deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete Comment';
   deleteButtonElement.id = "delete-button";
@@ -100,9 +108,14 @@ function createComElement(comment) {
     // Removes comments
     comElement.remove();
   });
-
+  const breakLine = document.createElement('br');
   comElement.appendChild(titleElement);
   comElement.appendChild(deleteButtonElement);
+  if(comment.imageUrl){
+    comElement.appendChild(breakLine);
+    comElement.appendChild(img);
+  }
+
   return comElement;
 }
 
