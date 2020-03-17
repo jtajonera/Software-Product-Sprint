@@ -50,7 +50,7 @@ public final class NewCommentServlet extends HttpServlet {
     String title = request.getParameter("title");
     long timestamp = System.currentTimeMillis();
     // Get the URL of the image that the user uploaded to Blobstore.
-    String imageUrl = getUploadedFileUrl(request, "image");
+    String imageUrl = getUploadedFileUrl(request, "CURRENT_IMAGE");
 
     Entity comEntity = new Entity("comClass");
     comEntity.setProperty("title", title);
@@ -69,7 +69,7 @@ public final class NewCommentServlet extends HttpServlet {
   private String getUploadedFileUrl(HttpServletRequest request, String formInputElementName) {
     BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
-    List<BlobKey> blobKeys = blobs.get("image");
+    List<BlobKey> blobKeys = blobs.get("CURRENT_IMAGE");
 
     // User submitted form without selecting a file, so we can't get a URL. (devserver)
     if (blobKeys == null || blobKeys.isEmpty()) {

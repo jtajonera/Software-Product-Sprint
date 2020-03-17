@@ -47,6 +47,7 @@ public final class ListCommentServlet extends HttpServlet {
 
   @Override  
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    final String REDIRECTED_URL = "/new-comment";
     response.setContentType("text/html;");
     PrintWriter out = response.getWriter();
     
@@ -54,7 +55,7 @@ public final class ListCommentServlet extends HttpServlet {
     List<Task> comments = new ArrayList<>();
 
     BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
-    String uploadUrl = blobstoreService.createUploadUrl("/new-comment");
+    String uploadUrl = blobstoreService.createUploadUrl(REDIRECTED_URL);
     
 
     //First element will be the uploadURL
