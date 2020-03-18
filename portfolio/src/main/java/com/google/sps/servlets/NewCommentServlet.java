@@ -45,7 +45,7 @@ public final class NewCommentServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     UserService userService = UserServiceFactory.getUserService();
-    String final current_image = "CURRENT_IMAGE";
+    final String current_image = "CURRENT_IMAGE";
     String email = userService.getCurrentUser().getEmail();
     String title = request.getParameter("title");
     long timestamp = System.currentTimeMillis();
