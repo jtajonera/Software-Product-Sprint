@@ -45,12 +45,12 @@ public final class NewCommentServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     UserService userService = UserServiceFactory.getUserService();
-
+    String final current_image = "CURRENT_IMAGE";
     String email = userService.getCurrentUser().getEmail();
     String title = request.getParameter("title");
     long timestamp = System.currentTimeMillis();
     // Get the URL of the image that the user uploaded to Blobstore.
-    String imageUrl = getUploadedFileUrl(request, "CURRENT_IMAGE");
+    String imageUrl = getUploadedFileUrl(request, current_image);
 
     Entity comEntity = new Entity("comClass");
     comEntity.setProperty("title", title);
